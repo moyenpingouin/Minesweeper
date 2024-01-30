@@ -1,4 +1,5 @@
-def voisins(coordonnees):
+def voisins(coordonnees:tuple()):
+    """fonction qui donne les coordonnées des voisins"""
     x=coordonnees[0]
     y=coordonnees[1]
     liste=[]
@@ -6,6 +7,7 @@ def voisins(coordonnees):
         for j in range(y-1, y+2):
             liste.append((i,j))
     liste2=list(liste)
+    #supprime les coordonnées hors du tableau + point en question
     for i in liste:
         if i[0]<0 or i[1]<0 or (i[0]==x and i[1]==y):
             liste2.remove(i)
