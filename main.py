@@ -42,6 +42,7 @@ def remplir(l:int,h:int,X:int,Y:int,max_mine:int):
     """l:longeur du tableau
     h:hauteur du tableau
     X,Y: coordonnees du point d'initialisation
+    max_mine:le nombre total de mine sur la grille
     OUT:liste de liste de int """
     H=[0 for i in range(h)]
     max_mine_ligne=max_mine/h
@@ -52,12 +53,21 @@ def remplir(l:int,h:int,X:int,Y:int,max_mine:int):
         nombre_mine=0
         for y in range(l):
           x=randint(0,6)
-          if x==2 :
+          if x==2:
              if(i,y)!=(Y,X) and nombre_mine < max_mine_ligne and nombre_mine_tot<max_mine:
                 L[y]='B'
                 nombre_mine+=1
                 nombre_mine_tot+=1
         H[i]=L
+    if nombre_mine_tot!=max_mine:
+        for i in range(max_mine-nombre_mine_tot):
+            x=randint(0,l-1)
+            y=randint(0,h-1)
+            if(i,y)!=(Y,X):
+                H[y][x]="B"
+                nombre_mine_tot+=1
+
     H[Y][X]="A"
     return H,nombre_mine_tot
+print(remplir(15,20,2,1,40))
 print(remplir(8,10,2,1,7))
