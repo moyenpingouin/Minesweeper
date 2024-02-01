@@ -31,7 +31,6 @@ for i in range(longueur_x):
     for j in range(longueur_y):
         liste.append('X')
 print(jeu_cache)
-print(fonction())
 
 #class
 
