@@ -14,16 +14,17 @@ def voisins(coordonnees:tuple()):
     return liste2
 
 class case:
-    def __init__(self,est_bombe, coordonnees, tableau):
+    def __init__(self,est_bombe:bool, coordonnees:tuple, tableau:list[list]):
         self.est_bombe=est_bombe
         self.voisins= voisins(coordonnees)
-
         if not self.est_bombe:
             nb=0
             for i in self.voisins:
                 if (tableau[i[1]][i[0]]).bombe():
                     nb+=1
-            self.nb=nb
+            self.etat=str(nb)
+        else:
+            self.etat='Bombe'
 
 
     def vide(self):
@@ -32,5 +33,5 @@ class case:
     def bombe(self):
         return self.est_bombe
 
-
-
+    def __str__(self) -> str:
+        return self.etat
