@@ -76,7 +76,7 @@ def remplir(tableau,coordonnees,mines:int):
     H[Y][X]="A"
     return H,nombre_mine_tot
 
-jeu_revele=remplir(jeu_revele,(2,1),10)[0]
+jeu_revele=remplir(jeu_revele,(2,1),30)[0]
 for i in range(len(jeu_revele)):
     for j in range(len(jeu_revele[0])):
         if j == len(jeu_revele[0])-1:
@@ -84,4 +84,7 @@ for i in range(len(jeu_revele)):
         else:
             print(jeu_revele[i][j], end=',')
 
-
+for i in jeu_revele:
+    for a in i:
+        if type(a)==case:
+            print(a.coordonnees, a.voisins)
