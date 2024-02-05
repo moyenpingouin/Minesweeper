@@ -4,6 +4,7 @@ def voisins(coordonnees:tuple(),tableau:list[list]):
     y=coordonnees[1]
     hauteur=len(tableau)
     longueur=len(tableau[0])
+    assert 0<=coordonnees[0]<hauteur+1 and 0<=coordonnees[1]<longueur
     liste=[]
     for i in range(x-1, x+2):
         for j in range(y-1, y+2):
@@ -11,14 +12,17 @@ def voisins(coordonnees:tuple(),tableau:list[list]):
     liste2=list(liste)
     #supprime les coordonnées hors du tableau + point en question
     for i in liste:
-        if i[0]<0 or i[1]<0 or (i[0]==x and i[1]==y) or (i[0]>longueur or i[1]>hauteur):
+        if i[0]<0 or i[1]<0 or (i[0]==x and i[1]==y) or (i[0]>hauteur-1 or i[1]>longueur-1):
             liste2.remove(i)
-    return liste2
+    liste3=[(tableau[i[0]][i[1]]) for i in liste2]
+    return liste3
 
 class case:
-    def __init__(self,est_bombe:bool, coordonnees:tuple, tableau:list[list]):
+    def __init__(self,est_bombe:bool, coordonnees=(('','')), tableau=[]):
         self.est_bombe=est_bombe
-        self.voisins= [tableau[i[1]][i[0]] for i in voisins(coordonnees,tableau)]
+        self.coordonnees=coordonnees
+        self.voisins= voisins(coordonnees,tableau)
+        self.est_revelee=False
         if not self.est_bombe:
             nb=0
             for i in self.voisins:
@@ -38,11 +42,9 @@ class case:
     def __str__(self) -> str:
         return self.etat
     
-a=case(True,(1,6),[[1,2,3,4,5,6,7],
-                   [1,2,3,4,5,6,7],
-                   [1,2,3,4,5,6,7]])
+a=case(True,(1,0),[[case(False),case(False),case(False),case(False)],
+                   [case(False),case(False),case(False),case(False)]],
+                   [case(False),case(False),case(False),case(False)])
 
 
-print(voisins((1,6),[[1,2,3,4,5,6,7],
-                   [1,2,3,4,5,6,7],
-                   [1,2,3,4,5,6,7]]))
+print(a.voisins)
