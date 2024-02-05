@@ -18,17 +18,15 @@ def voisins(coordonnees:tuple(),tableau:list[list]):
     return liste3
 
 class case:
-    def __init__(self,est_bombe:bool, coordonnees=(('','')), tableau=[]):
+    def __init__(self,est_bombe:bool, coordonnees, tableau=[]):
+        self.tableau = tableau
         self.est_bombe=est_bombe
         self.coordonnees=coordonnees
-        self.voisins= voisins(coordonnees,tableau)
+        self.voisins= voisins(self.coordonnees,self.tableau)
         self.est_revelee=False
         if not self.est_bombe:
-            nb=0
-            for i in self.voisins:
-                if (tableau[i[1]][i[0]]).bombe():
-                    nb+=1
-            self.etat=str(nb)
+            self.nb=len(self.voisins)
+            self.etat=str(self.nb)
         else:
             self.etat='Bombe'
 
@@ -41,10 +39,36 @@ class case:
 
     def __str__(self) -> str:
         return self.etat
-    
-a=case(True,(1,0),[[case(False),case(False),case(False),case(False)],
-                   [case(False),case(False),case(False),case(False)]],
-                   [case(False),case(False),case(False),case(False)])
 
 
-print(a.voisins)
+
+
+#TESTS
+tableau1=[]
+for i in range(3):
+    liste=[]
+    for j in range(4):
+        liste.append('')
+    tableau1.append(liste)
+
+
+for i in range(3):
+    for j in range(4):
+        b=case(False,(i,j),tableau1)
+        tableau1[i][j]=b
+
+a=case(True,(1,0),tableau1)
+tableau1[1][0]=a
+
+for i in range(len(tableau1)):
+    for j in range(len(tableau1[0])):
+        if j == len(tableau1[0])-1:
+            print(tableau1[i][j])
+        else:
+            print(tableau1[i][j], end=',')
+
+print('----------------------------------------------------------------')
+
+print(voisins((0,0),tableau1)) 
+print(tableau1[0][0].coordonnees)
+print((tableau1[0][0]).voisins)
