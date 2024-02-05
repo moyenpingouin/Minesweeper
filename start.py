@@ -1,7 +1,6 @@
 
 import pygame
 import sys
-import classes
 
 # Initialisation de Pygame
 pygame.init()
@@ -28,7 +27,7 @@ bombe = pygame.image.load('bombe_start.png')
 # Création de la police de caractères
 police = pygame.font.SysFont(None, 48)
 police_2 = pygame.font.SysFont(None,60)
-police_3 = pygame.font.SysFont(None,30)
+police_3 = pygame.font.SysFont(None,20)
 # Création du texte
 minesweeper=police_2.render("Minesweeper", True, blanc)
 Dev=police_3.render("DEV:Antoine KAYALI, Renan KAELBEL", True, blanc)
@@ -36,7 +35,7 @@ quitter=police.render("QUIT GAME",True,blanc)
 jouer=police.render("PLAY",True,blanc)
 option=police.render("OPTION",True,blanc)
 texte_rect = minesweeper.get_rect(center=(largeur/2, (hauteur/2)-200))
-DEV_rect = Dev.get_rect(center=(largeur/2, (hauteur/2)-200))
+DEV_rect = Dev.get_rect(center=(largeur/2, hauteur-50))
 quitter_rect=quitter.get_rect(center=(largeur/2,(hauteur/2)+130))
 jouer_rect=jouer.get_rect(center=(largeur/2,(hauteur/2)-55))
 option_rect = option.get_rect(center=(largeur/2, (hauteur/2)+35))
