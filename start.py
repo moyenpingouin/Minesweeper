@@ -80,7 +80,6 @@ while True:
     ecran.blit(quitter,quitter_rect)
     ecran.blit(jouer,jouer_rect)
     ecran.blit(option,option_rect)
-    ecran.blit(Dev,DEV_rect)
     ecran.blit(drapeau, ((largeur/2)-180,(hauteur/2)-225))
     ecran.blit(bombe, ((largeur/2)+125,(hauteur/2)-225))
 
