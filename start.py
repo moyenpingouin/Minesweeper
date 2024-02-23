@@ -48,6 +48,9 @@ bouton_quitter = pygame.Rect(288, 400, 225, 60)
 
 # Boucle principale
 while True:
+    # Récupérer les coordonnées de la souris
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()

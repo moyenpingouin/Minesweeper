@@ -1,41 +1,42 @@
 import pygame
-import sys
-
-# Initialisation de Pygame
 pygame.init()
 
-# Définition de la taille de l'écran
-largeur, hauteur = 800, 600
-taille_ecran = (largeur, hauteur)
+# Définir les couleurs
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 
-# Création de l'écran
-ecran = pygame.display.set_mode(taille_ecran)
+# Définir la taille de la fenêtre
+WIDTH, HEIGHT = 400, 300
+win = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Bouton qui change de couleur")
 
-# Chargement de l'image
-image = pygame.image.load('démineur.png')  # Remplacez 'chemin_vers_votre_image.jpg' par le chemin de votre image
-image = pygame.transform.scale(image, (largeur, hauteur))  # Redimensionner l'image pour qu'elle remplisse l'écran
+# Définir le texte du bouton
+font = pygame.font.SysFont(None, 30)
+text = font.render("Cliquez ici", True, WHITE)
 
-# Création d'une surface transparente
-surface_transparente = pygame.Surface((largeur, hauteur), pygame.SRCALPHA)
-pygame.draw.rect(surface_transparente, (0, 0, 0, 200), (0, 0, largeur, hauteur))  # Rectangle semi-transparent noir
+# Définir le rectangle du bouton
+button = pygame.Rect(150, 100, 100, 50)
 
 # Boucle principale
-clock = pygame.time.Clock()
-while True:
+running = True
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+            running = False
 
-    # Effacer l'écran
-    ecran.fill((0, 0, 0))
+    # Récupérer les coordonnées de la souris
+    mouse_x, mouse_y = pygame.mouse.get_pos()
 
-    # Superposer l'image avec la surface transparente
-    ecran.blit(image, (0, 0))
-    ecran.blit(surface_transparente, (0, 0))
+    # Vérifier si la souris est sur le bouton
+    if button.collidepoint(mouse_x, mouse_y):
+        pygame.draw.rect(win, GREEN, button)
+    else:
+        pygame.draw.rect(win, RED, button)
 
-    # Rafraîchissement de l'écran
-    pygame.display.flip()
+    # Afficher le texte sur le bouton
+    win.blit(text, (165, 110))
 
-    # Limiter la vitesse de la boucle
-    clock.tick(60)
+    pygame.display.update()
+
+pygame.quit()
