@@ -26,16 +26,13 @@ elif difficulte==3:
     longueur_y=26
     longueur_x=19
 
-for i in range(longueur_y):
-    liste=[]
-    for j in range(longueur_x):
-        liste.append('X')
-    jeu_cache.append(liste)
+
 
 for i in range(longueur_y):
     liste=[]
+    c=case()
     for j in range(longueur_x):
-        liste.append(0)
+        liste.append(c)
     jeu_revele.append(liste)
 #class
 
@@ -60,8 +57,8 @@ def remplir(tableau,coordonnees,mines:int):
           x=randint(0,6)
           if x==2:
              if(i,y)!=(Y,X) and nombre_mine < max_mine_ligne and nombre_mine_tot<mines:
-                bombe=case(True,(i,y),tableau)
-                L[y]=bombe
+                b=bombe()
+                L[y]=b
                 nombre_mine+=1
                 nombre_mine_tot+=1
         H[i]=L
@@ -70,10 +67,9 @@ def remplir(tableau,coordonnees,mines:int):
             x=randint(0,l-1)
             y=randint(0,h-1)
             if(i,y)!=(Y,X):
-                H[y][x]=case(True,(i,y),tableau)
+                H[y][x]=bombe()
                 nombre_mine_tot+=1
 
-    H[Y][X]="A"
     return H,nombre_mine_tot
 
 jeu_revele=remplir(jeu_revele,(2,1),30)[0]
@@ -84,7 +80,33 @@ for i in range(len(jeu_revele)):
         else:
             print(jeu_revele[i][j], end=',')
 
-for i in jeu_revele:
-    for a in i:
-        if type(a)==case:
-            print(a.coordonnees, a.voisins)
+def voisins(coordonnees:tuple(),tableau):
+    """fonction qui donne les coordonnées des voisins"""
+    x=coordonnees[0]
+    y=coordonnees[1]
+    hauteur=len(tableau)
+    longueur=len(tableau[0])
+    assert 0<=coordonnees[0]<hauteur+1 and 0<=coordonnees[1]<longueur
+    liste=[]
+    for i in range(x-1, x+2):
+        for j in range(y-1, y+2):
+            liste.append((i,j))
+    liste2=list(liste)
+    #supprime les coordonnées hors du tableau + point en question
+    for i in liste:
+        if i[0]<0 or i[1]<0 or (i[0]==x and i[1]==y) or (i[0]>hauteur-1 or i[1]>longueur-1):
+            liste2.remove(i)
+    return liste2
+print(voisins((0,0),[[1,2,3,4],[1,2,3,4],[1,2,3,4]]))
+
+def mis_a_jour_etat(tableau):
+    for i in range(len(tableau)):
+        for j in range(len(tableau[i])):
+            nb=0
+            for vois in voisins((i,j),tableau):
+                if tableau[vois[0]][vois[1]].est_bombe():
+                    nb+=1
+            tableau[i][j].etat=str(nb)
+    return tableau
+
+print(mis_a_jour_etat(jeu_revele))
