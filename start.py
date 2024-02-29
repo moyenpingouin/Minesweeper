@@ -1,7 +1,6 @@
 
 import pygame
 import sys
-
 # Initialisation de Pygame
 pygame.init()
 
@@ -9,45 +8,73 @@ pygame.init()
 largeur, hauteur = 800, 600
 taille_ecran = (largeur, hauteur)
 
+# Définition de la couleur
+fond = (183, 173, 171)
+blanc = (255, 255, 255)
+rouge = (255, 0, 0)
+orange = (122, 41, 14)
+
 # Ajout d'un titre à la fenêtre
 pygame.display.set_caption('Minesweeper')
 
 # Création de l'écran
 ecran = pygame.display.set_mode(taille_ecran)
 
-# Définition de la couleur
-fond = (183, 173, 171)
-blanc = (255, 255, 255)
-rouge = (255, 0, 0)
-orange = (122, 41, 14)
 # Chargement des images
 drapeau = pygame.image.load('drapeau_start.png')  
 bombe = pygame.image.load('bombe_start.png')
+fond_image = pygame.image.load('fond_start.png') 
+fondu = pygame.transform.scale(fond_image,(taille_ecran))
+fondu.set_alpha(140)
 
 # Création de la police de caractères
 police = pygame.font.SysFont(None, 48)
 police_2 = pygame.font.SysFont(None,60)
 police_3 = pygame.font.SysFont(None,20)
+
 # Création du texte
+#texte
 minesweeper=police_2.render("Minesweeper", True, blanc)
 Dev=police_3.render("Devs : Antoine KAYALI, Renan KAELBEL", True, blanc)
 quitter=police.render("QUIT GAME",True,blanc)
 jouer=police.render("PLAY",True,blanc)
 option=police.render("OPTION",True,blanc)
+retour=police.render("RETOUR",True,blanc)
+#react
 texte_rect = minesweeper.get_rect(center=(largeur/2, (hauteur/2)-200))
 DEV_rect = Dev.get_rect(center=((largeur/2)+260, hauteur-25))
 quitter_rect=quitter.get_rect(center=(largeur/2,(hauteur/2)+130))
 jouer_rect=jouer.get_rect(center=(largeur/2,(hauteur/2)-55))
 option_rect = option.get_rect(center=(largeur/2, (hauteur/2)+35))
+retour_rect = retour.get_rect(center=(50,50))
 
 
 # Création des boutons
 bouton_jouer = pygame.Rect(288, 215, 225, 60)
 bouton_option = pygame.Rect(288, 305, 225, 60)
 bouton_quitter = pygame.Rect(288, 400, 225, 60)
+bouton_retour = pygame.Rect()
+
+#Définition de la page option 
+def option_ecran():
+    run_option = True
+    while run_option:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            # Ajoutez ici d'autres événements spécifiques à la page des options
+
+        # Ajoutez ici le code pour afficher les options sur l'écran
+        # Remplissage de l'écran 
+        ecran.fill(fond)
+        ecran.blit(fondu, (0,0)) 
+
+        pygame.display.flip()
 
 # Boucle principale
-while True:
+run=True
+while run:
     # Récupérer les coordonnées de la souris
     mouse_x, mouse_y = pygame.mouse.get_pos()
     
@@ -61,17 +88,16 @@ while True:
                 pass
             elif bouton_option.collidepoint(event.pos):
                 # Code pour passer à l'écran des options
-                pass
+                run_option=True
+                option_ecran()
             elif bouton_quitter.collidepoint(event.pos):
                 pygame.quit()
                 sys.exit()
 
     # Remplissage de l'écran avec la couleur noire
     ecran.fill(fond)
+    ecran.blit(fondu, (0,0))
     
-    #bouton
-    pygame.draw.rect(ecran, (50, 67, 60), ((288, 400, 230, 65)))
-    pygame.draw.rect(ecran, (50, 67, 60), ((288, 305, 230, 65)))
 
     # Vérifier si la souris est sur un bouton et changer sa couleur en rouge si c'est le cas
     if bouton_jouer.collidepoint((mouse_x, mouse_y)):
@@ -80,14 +106,19 @@ while True:
     else:
         pygame.draw.rect(ecran, (50, 67, 60), ((288, 215, 230, 65)))
         pygame.draw.rect(ecran, (116, 111, 110), bouton_jouer)
+    
     if bouton_option.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, orange, ((288, 305, 230, 65)))
         pygame.draw.rect(ecran, rouge, bouton_option)
     else:
+        pygame.draw.rect(ecran, (50, 67, 60), ((288, 305, 230, 65)))
         pygame.draw.rect(ecran, (116, 111, 110), bouton_option)
 
     if bouton_quitter.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, orange, ((288, 400, 230, 65)))
         pygame.draw.rect(ecran, rouge, bouton_quitter)
     else:
+        pygame.draw.rect(ecran, (50, 67, 60 ), ((288, 400, 230, 65)))
         pygame.draw.rect(ecran, (116, 111, 110), bouton_quitter)
     # Dessin sur le fond
     pygame.draw.rect(ecran, (50, 67, 60) , (((largeur/2)-200, (hauteur/2)-240, (largeur/2)+5, 75)))
