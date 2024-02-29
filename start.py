@@ -15,11 +15,11 @@ pygame.display.set_caption('Minesweeper')
 # Création de l'écran
 ecran = pygame.display.set_mode(taille_ecran)
 
-# Définition de la couleur noire
+# Définition de la couleur
 fond = (183, 173, 171)
 blanc = (255, 255, 255)
 rouge = (255, 0, 0)
-
+orange = (122, 41, 14)
 # Chargement des images
 drapeau = pygame.image.load('drapeau_start.png')  
 bombe = pygame.image.load('bombe_start.png')
@@ -72,14 +72,14 @@ while True:
     #bouton
     pygame.draw.rect(ecran, (50, 67, 60), ((288, 400, 230, 65)))
     pygame.draw.rect(ecran, (50, 67, 60), ((288, 305, 230, 65)))
-    pygame.draw.rect(ecran, (50, 67, 60), ((288, 215, 230, 65)))
 
     # Vérifier si la souris est sur un bouton et changer sa couleur en rouge si c'est le cas
     if bouton_jouer.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran,orange, ((288, 215, 230, 65)))
         pygame.draw.rect(ecran, rouge, bouton_jouer)
     else:
+        pygame.draw.rect(ecran, (50, 67, 60), ((288, 215, 230, 65)))
         pygame.draw.rect(ecran, (116, 111, 110), bouton_jouer)
-
     if bouton_option.collidepoint((mouse_x, mouse_y)):
         pygame.draw.rect(ecran, rouge, bouton_option)
     else:
