@@ -1,42 +1,95 @@
 import pygame
+#Initialisation de Pygame
 pygame.init()
 
-# Définir les couleurs
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+# Définition de la taille de l'écran
+largeur, hauteur = 800, 600
+taille_ecran = (largeur, hauteur)
 
-# Définir la taille de la fenêtre
-WIDTH, HEIGHT = 400, 300
-win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Bouton qui change de couleur")
+# Ajout d'un titre à la fenêtre
+pygame.display.set_caption('Minesweeper')
 
-# Définir le texte du bouton
-font = pygame.font.SysFont(None, 30)
-text = font.render("Cliquez ici", True, WHITE)
+# Création de l'écran
+ecran = pygame.display.set_mode(taille_ecran)
 
-# Définir le rectangle du bouton
-button = pygame.Rect(150, 100, 100, 50)
+# Définition de la couleur noire
+fond = (183, 173, 171)
+blanc = (255, 255, 255)
+rouge = (255, 0, 0)
+
+# Chargement des images
+drapeau = pygame.image.load('drapeau_start.png')  
+bombe = pygame.image.load('bombe_start.png')
+
+# Création de la police de caractères
+police = pygame.font.SysFont(None, 48)
+police_2 = pygame.font.SysFont(None,60)
+police_3 = pygame.font.SysFont(None,20)
+# Création du texte
+minesweeper=police_2.render("Minesweeper", True, blanc)
+Dev=police_3.render("Devs : Antoine KAYALI, Renan KAELBEL", True, blanc)
+quitter=police.render("QUIT GAME",True,blanc)
+jouer=police.render("PLAY",True,blanc)
+option=police.render("OPTION",True,blanc)
+texte_rect = minesweeper.get_rect(center=(largeur/2, (hauteur/2)-200))
+DEV_rect = Dev.get_rect(center=((largeur/2)+260, hauteur-25))
+quitter_rect=quitter.get_rect(center=(largeur/2,(hauteur/2)+130))
+jouer_rect=jouer.get_rect(center=(largeur/2,(hauteur/2)-55))
+option_rect = option.get_rect(center=(largeur/2, (hauteur/2)+35))
+
+
+# Création des boutons
+bouton_jouer = pygame.Rect(288, 215, 225, 60)
+bouton_option = pygame.Rect(288, 305, 225, 60)
+bouton_quitter = pygame.Rect(288, 400, 225, 60)
 
 # Boucle principale
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
+while True:
     # Récupérer les coordonnées de la souris
     mouse_x, mouse_y = pygame.mouse.get_pos()
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if bouton_jouer.collidepoint(event.pos):
+                # Code pour passer à l'écran de jeu
+                pass
+            elif bouton_option.collidepoint(event.pos):
+                # Code pour passer à l'écran des options
+                pass
+            elif bouton_quitter.collidepoint(event.pos):
+                pygame.quit()
+                sys.exit()
 
-    # Vérifier si la souris est sur le bouton
-    if button.collidepoint(mouse_x, mouse_y):
-        pygame.draw.rect(win, GREEN, button)
+    # Remplissage de l'écran avec la couleur noire
+    ecran.fill(fond)
+
+    # Vérifier si la souris est sur un bouton et changer sa couleur en rouge si c'est le cas
+    if bouton_jouer.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, rouge, bouton_jouer)
     else:
-        pygame.draw.rect(win, RED, button)
+        pygame.draw.rect(ecran, (116, 111, 110), bouton_jouer)
 
-    # Afficher le texte sur le bouton
-    win.blit(text, (165, 110))
+    if bouton_option.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, rouge, bouton_option)
+    else:
+        pygame.draw.rect(ecran, (116, 111, 110), bouton_option)
 
-    pygame.display.update()
+    if bouton_quitter.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, rouge, bouton_quitter)
+    else:
+        pygame.draw.rect(ecran, (116, 111, 110), bouton_quitter)
 
-pygame.quit()
+    # Dessin du texte et des images
+    ecran.blit(minesweeper, texte_rect)
+    ecran.blit(Dev, DEV_rect)
+    ecran.blit(quitter, quitter_rect)
+    ecran.blit(jouer, jouer_rect)
+    ecran.blit(option, option_rect)
+    ecran.blit(drapeau, (140, 180))
+    ecran.blit(bombe, (500, 180))
+
+    # Mise à jour de l'écran
+    pygame.display.flip()

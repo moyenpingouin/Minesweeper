@@ -68,15 +68,29 @@ while True:
 
     # Remplissage de l'écran avec la couleur noire
     ecran.fill(fond)
-
-    # Dessin sur le fond
+    
+    #bouton
     pygame.draw.rect(ecran, (50, 67, 60), ((288, 400, 230, 65)))
     pygame.draw.rect(ecran, (50, 67, 60), ((288, 305, 230, 65)))
     pygame.draw.rect(ecran, (50, 67, 60), ((288, 215, 230, 65)))
+
+    # Vérifier si la souris est sur un bouton et changer sa couleur en rouge si c'est le cas
+    if bouton_jouer.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, rouge, bouton_jouer)
+    else:
+        pygame.draw.rect(ecran, (116, 111, 110), bouton_jouer)
+
+    if bouton_option.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, rouge, bouton_option)
+    else:
+        pygame.draw.rect(ecran, (116, 111, 110), bouton_option)
+
+    if bouton_quitter.collidepoint((mouse_x, mouse_y)):
+        pygame.draw.rect(ecran, rouge, bouton_quitter)
+    else:
+        pygame.draw.rect(ecran, (116, 111, 110), bouton_quitter)
+    # Dessin sur le fond
     pygame.draw.rect(ecran, (50, 67, 60) , (((largeur/2)-200, (hauteur/2)-240, (largeur/2)+5, 75)))
-    pygame.draw.rect(ecran, (116, 111, 110), bouton_jouer)
-    pygame.draw.rect(ecran, (116, 111, 110), bouton_option)
-    pygame.draw.rect(ecran, (116, 111, 110), bouton_quitter)
     pygame.draw.rect(ecran, (50, 67, 60), (0, hauteur-50, largeur, 50))
     pygame.draw.rect(ecran, (116, 111, 110), (((largeur/2)-200, (hauteur/2)-240, (largeur/2), 70)))
     ecran.blit(minesweeper, texte_rect)
