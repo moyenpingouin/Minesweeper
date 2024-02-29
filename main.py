@@ -26,27 +26,33 @@ elif difficulte==3:
     longueur_y=26
     longueur_x=19
 
-for i in range(longueur_x):
+for i in range(longueur_y):
     liste=[]
-    for j in range(longueur_y):
+    for j in range(longueur_x):
         liste.append('X')
-print(jeu_cache)
-print(fonction())
+    jeu_cache.append(liste)
+
+for i in range(longueur_y):
+    liste=[]
+    for j in range(longueur_x):
+        liste.append(0)
+    jeu_revele.append(liste)
+
 
 #class
 
 
 
 #code
-def remplir(l:int,h:int,X:int,Y:int,max_mine:int):
+def remplir_mine(jeu_revele,coordonnes,max_mine:int):
     """l:longeur du tableau
     h:hauteur du tableau
     X,Y: coordonnees du point d'initialisation
     max_mine:le nombre total de mine sur la grille
     OUT:liste de liste de int """
-    H=[0 for i in range(h)]
+    h=len(jeu_revele)
+    l=len(jeu_revele[0])
     max_mine_ligne=max_mine/h
-    print(max_mine_ligne)
     nombre_mine_tot=0
     for i in range(h):
         L=[0 for _ in range(l)]
@@ -54,11 +60,11 @@ def remplir(l:int,h:int,X:int,Y:int,max_mine:int):
         for y in range(l):
           x=randint(0,6)
           if x==2:
-             if(i,y)!=(Y,X) and nombre_mine < max_mine_ligne and nombre_mine_tot<max_mine:
-                L[y]='B'
+             if(i,y)!=(coordonnes[1],coordonnes[0]) and nombre_mine < max_mine_ligne and nombre_mine_tot<max_mine:
+                L[y]=case(True,(y,x),)
                 nombre_mine+=1
                 nombre_mine_tot+=1
-        H[i]=L
+        jeu_revele[i]=L
     if nombre_mine_tot!=max_mine:
         for i in range(max_mine-nombre_mine_tot):
             x=randint(0,l-1)
