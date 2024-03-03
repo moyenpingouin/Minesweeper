@@ -31,6 +31,11 @@ elif difficulte==3:
 
 jeu_revele=initialiser(jeu_revele,longueur_y,longueur_x)
 jeu_revele=remplir(jeu_revele,(0,0),nb_mines)
-jeu_revele=mise_a_jour(jeu_revele)
-deminer((0,0),jeu_revele)
-affiche(jeu_revele)
+jeu_cache=mise_a_jour(jeu_revele)
+
+for f in range(len(jeu_revele)):
+        for h in range(len(jeu_revele[0])):
+            if h == len(jeu_revele[0])-1:
+                print(jeu_revele[f][h].nouvel_etat)
+            else:
+                print(jeu_revele[f][h].nouvel_etat, end=',')
