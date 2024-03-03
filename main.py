@@ -5,6 +5,7 @@ import os
 #import pygame
 from random import randint
 from classes import *
+from fonctions import *
 #Variables
 jeu_revele=[]
 jeu_cache=[]
@@ -26,54 +27,10 @@ elif difficulte==3:
     longueur_y=26
     longueur_x=19
 
-for i in range(longueur_y):
-    liste=[]
-    for j in range(longueur_x):
-        liste.append('X')
-    jeu_cache.append(liste)
-
-for i in range(longueur_y):
-    liste=[]
-    for j in range(longueur_x):
-        liste.append(0)
-    jeu_revele.append(liste)
 
 
-#class
-
-
-
-#code
-def remplir_mine(jeu_revele,coordonnes,max_mine:int):
-    """l:longeur du tableau
-    h:hauteur du tableau
-    X,Y: coordonnees du point d'initialisation
-    max_mine:le nombre total de mine sur la grille
-    OUT:liste de liste de int """
-    h=len(jeu_revele)
-    l=len(jeu_revele[0])
-    max_mine_ligne=max_mine/h
-    nombre_mine_tot=0
-    for i in range(h):
-        L=[0 for _ in range(l)]
-        nombre_mine=0
-        for y in range(l):
-          x=randint(0,6)
-          if x==2:
-             if(i,y)!=(coordonnes[1],coordonnes[0]) and nombre_mine < max_mine_ligne and nombre_mine_tot<max_mine:
-                L[y]=case(True,(y,x),)
-                nombre_mine+=1
-                nombre_mine_tot+=1
-        jeu_revele[i]=L
-    if nombre_mine_tot!=max_mine:
-        for i in range(max_mine-nombre_mine_tot):
-            x=randint(0,l-1)
-            y=randint(0,h-1)
-            if(i,y)!=(Y,X):
-                H[y][x]="B"
-                nombre_mine_tot+=1
-
-    H[Y][X]="A"
-    return H,nombre_mine_tot
-print(remplir(15,20,2,1,40))
-print(remplir(8,10,2,1,7))
+jeu_revele=initialiser(jeu_revele,longueur_y,longueur_x)
+jeu_revele=remplir(jeu_revele,(0,0),nb_mines)
+jeu_revele=mise_a_jour(jeu_revele)
+deminer((0,0),jeu_revele)
+affiche(jeu_revele)
