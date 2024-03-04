@@ -53,7 +53,6 @@ retour_rect = retour.get_rect(center=(50,50))
 bouton_jouer = pygame.Rect(288, 215, 225, 60)
 bouton_option = pygame.Rect(288, 305, 225, 60)
 bouton_quitter = pygame.Rect(288, 400, 225, 60)
-bouton_retour = pygame.Rect()
 
 #Définition de la page option 
 def option_ecran():
