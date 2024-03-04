@@ -18,12 +18,6 @@ class case:
     
 
 
-
-
-
-
-
-
 class bombe:
     def __init__(self):
         self.nouvel_etat='b'
@@ -39,4 +33,17 @@ class bombe:
             return 'X'
 
     def est_bombe(self):
+        return True
+
+
+class tableau:
+    def __init__(self,table):
+        self.elem=table
+    
+    def test_revele(self):
+        for i in range(len(self.elem)):
+            for j in range(len(self.elem[0])):
+                if not self.elem[i][j].nouvel_etat=='b':
+                    if not self.elem[i][j].est_revelee:
+                        return False
         return True
