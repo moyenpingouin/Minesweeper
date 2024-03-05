@@ -15,6 +15,14 @@ def affiche(tableau):
             else:
                 print(tableau[f][h], end=',')
 
+def affiche_rev(tableau):
+    """fonction bête d'affichage"""
+    for f in range(len(tableau)):
+        for h in range(len(tableau[0])):
+            if h == len(tableau[0])-1:
+                print(tableau[f][h].nouvel_etat)
+            else:
+                print(tableau[f][h].nouvel_etat, end=',')
 
 
 ################################################################
@@ -106,7 +114,12 @@ def deminer(kase: tuple, tableau: list):
     elif not tableau[i][j].est_revelee and not tableau[i][j].est_bombe():
         tableau[i][j].est_revelee = True
 
-    # Si la case est révélée et contient une bombe, retourne 'GAME OVER'
-    elif not tableau[i][j].est_revelee and tableau[i][j].est_bombe():
-        return 'GAME OVER'
 
+def verif(tableau):
+    for i in tableau:
+        for j in i:
+            if j.est_revelee==False and j.est_bombe()==False:
+                return False
+            if j.est_revelee==False and j.est_bombe()==True:
+                return 'GAME OVER'
+    return True

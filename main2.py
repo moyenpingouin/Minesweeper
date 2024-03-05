@@ -2,6 +2,7 @@ from random import randint
 from classes import *
 from fonctions import *
 from intialisation import *
+import pygame
 
 a=0
 deminer((cordonnees_dep),jeu_cache)
@@ -18,8 +19,16 @@ while a==0:
         print('-------------------------')
         deminer((coordonnées),jeu_cache)
         affiche(jeu_cache)
-        if tableau_rgt.test_revele():
+        b= verif(jeu_cache)
+        if b==True:
             a=1
+        if b=='GAME OVER':
+            a=2
+if a ==1:
+    print('gagné')
+if a==2:
+    print('perdu')
+affiche_rev(jeu_cache)
 
 
 #if a==1: BRAVO
