@@ -10,14 +10,14 @@ from fonctions import *
 jeu_revele=[]
 jeu_cache=[]
     #difficulte=int(input("difficulté"))
-difficulte=1
+difficulte=3
 
 #initialisation
 
 if difficulte==1:
-    nb_mines=2
-    longueur_x=3
-    longueur_y=3
+    nb_mines=7
+    longueur_x=8
+    longueur_y=10
 elif difficulte==2:
     nb_mines=40
     longueur_x=15
@@ -37,4 +37,3 @@ jeu_revele=initialiser(jeu_revele,longueur_y,longueur_x)
 jeu_revele=remplir(jeu_revele,cordonnees_dep,nb_mines)
 jeu_cache=mise_a_jour(jeu_revele)
 tableau_jeu=tableau_rgt(jeu_cache)
-

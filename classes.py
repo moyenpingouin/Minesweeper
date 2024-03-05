@@ -5,7 +5,7 @@ class case:
         self.nouvel_etat=''
         self.est_revelee=False
         self.drapeau=False
-        self.image=Image.open('case.png') #afficher_image(self): self.image.show()
+        self.image=Image.open('images/case.png') #afficher_image(self): self.image.show()
 
     def __str__(self):
         if self.est_revelee==True:
@@ -23,8 +23,8 @@ class bombe:
         self.nouvel_etat='b'
         self.est_revelee=False
         self.drapeau=False
-        self.image=Image.open('case.png')
- 
+        self.image=Image.open('images/case.png')
+   
 
     def __str__(self):
         if self.est_revelee==True:

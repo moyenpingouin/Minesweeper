@@ -1,11 +1,14 @@
 from random import randint
 from classes import *
 from fonctions import *
-from main import *
+from intialisation import *
 
-
+a=0
+deminer((cordonnees_dep),jeu_cache)
 affiche(jeu_cache)
-while True:
+
+
+while a==0:
     coordonnées=input("coordonnées")
     coordonnées=coordonnées.split()
     coordonnées=tuple(int(element) for element in coordonnées)
@@ -15,4 +18,11 @@ while True:
         print('-------------------------')
         deminer((coordonnées),jeu_cache)
         affiche(jeu_cache)
+        if tableau_rgt.test_revele():
+            a=1
 
+
+#if a==1: BRAVO
+#if a==2: Game over
+
+            

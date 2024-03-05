@@ -5,26 +5,6 @@ import os
 #import pygame
 from random import randint
 from classes import *
-#Variables
-jeu_revele=[]
-jeu_cache=[]
-    #difficulte=int(input("difficulté"))
-difficulte=1
-
-#initialisation
-
-if difficulte==1:
-    nb_mines=2
-    longueur_x=10
-    longueur_y=8
-elif difficulte==2:
-    nb_mines=40
-    longueur_x=15
-    longueur_y=20
-elif difficulte==3:
-    nb_mines=100
-    longueur_y=26
-    longueur_x=19
 
 def affiche(tableau):
     """fonction bête d'affichage"""
