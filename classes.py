@@ -5,7 +5,7 @@ class case:
         self.nouvel_etat=''
         self.est_revelee=False
         self.drapeau=False
-        self.image=Image.open('case.png') #afficher_image(self): self.image.show()
+        self.image=Image.open('images/case.png') #afficher_image(self): self.image.show()
 
     def __str__(self):
         if self.est_revelee==True:
@@ -23,8 +23,8 @@ class bombe:
         self.nouvel_etat='b'
         self.est_revelee=False
         self.drapeau=False
-        self.image=Image.open('case.png')
- 
+        self.image=Image.open('images/case.png')
+   
 
     def __str__(self):
         if self.est_revelee==True:
@@ -36,14 +36,14 @@ class bombe:
         return True
 
 
-class tableau:
-    def __init__(self,table):
+class tableau_rgt:
+
+    def __init__(self,table,diff):
         self.elem=table
-    
-    def test_revele(self):
-        for i in range(len(self.elem)):
-            for j in range(len(self.elem[0])):
-                if not self.elem[i][j].nouvel_etat=='b':
-                    if not self.elem[i][j].est_revelee:
-                        return False
-        return True
+        self.diff=diff
+        if diff==1:
+            self.image=Image.open('image/Sans_titre.jpg')
+        if diff==2:
+            self.image=Image.open('image/Sans_titre.jpg')
+        if diff==3:
+            self.image=Image.open('image/Sans_titre.jpg')

@@ -5,26 +5,6 @@ import os
 #import pygame
 from random import randint
 from classes import *
-#Variables
-jeu_revele=[]
-jeu_cache=[]
-    #difficulte=int(input("difficulté"))
-difficulte=1
-
-#initialisation
-
-if difficulte==1:
-    nb_mines=2
-    longueur_x=10
-    longueur_y=8
-elif difficulte==2:
-    nb_mines=40
-    longueur_x=15
-    longueur_y=20
-elif difficulte==3:
-    nb_mines=100
-    longueur_y=26
-    longueur_x=19
 
 def affiche(tableau):
     """fonction bête d'affichage"""
@@ -35,6 +15,14 @@ def affiche(tableau):
             else:
                 print(tableau[f][h], end=',')
 
+def affiche_rev(tableau):
+    """fonction bête d'affichage"""
+    for f in range(len(tableau)):
+        for h in range(len(tableau[0])):
+            if h == len(tableau[0])-1:
+                print(tableau[f][h].nouvel_etat)
+            else:
+                print(tableau[f][h].nouvel_etat, end=',')
 
 
 ################################################################
@@ -126,7 +114,12 @@ def deminer(kase: tuple, tableau: list):
     elif not tableau[i][j].est_revelee and not tableau[i][j].est_bombe():
         tableau[i][j].est_revelee = True
 
-    # Si la case est révélée et contient une bombe, retourne 'GAME OVER'
-    elif not tableau[i][j].est_revelee and tableau[i][j].est_bombe():
-        return 'GAME OVER'
 
+def verif(tableau):
+    for i in tableau:
+        for j in i:
+            if j.est_revelee==False and j.est_bombe()==False:
+                return False
+            if j.est_revelee==False and j.est_bombe()==True:
+                return 'GAME OVER'
+    return True
