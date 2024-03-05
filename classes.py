@@ -36,7 +36,7 @@ class bombe:
         return True
 
 
-class tableau:
+class tableau_rgt:
     def __init__(self,table):
         self.elem=table
     

@@ -3,11 +3,9 @@ from classes import *
 from fonctions import *
 from main import *
 
-initialiser_jeu()
+
 affiche(jeu_cache)
 while True:
-    print('-------------------------')
-    affiche(jeu_cache)
     coordonnées=input("coordonnées")
     coordonnées=coordonnées.split()
     coordonnées=tuple(int(element) for element in coordonnées)
