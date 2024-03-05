@@ -46,13 +46,14 @@ DEV_rect = Dev.get_rect(center=((largeur/2)+260, hauteur-25))
 quitter_rect=quitter.get_rect(center=(largeur/2,(hauteur/2)+130))
 jouer_rect=jouer.get_rect(center=(largeur/2,(hauteur/2)-55))
 option_rect = option.get_rect(center=(largeur/2, (hauteur/2)+35))
-retour_rect = retour.get_rect(center=(50,50))
+retour_rect = retour.get_rect(center=(90,50))
 
 
 # Création des boutons
 bouton_jouer = pygame.Rect(288, 215, 225, 60)
 bouton_option = pygame.Rect(288, 305, 225, 60)
 bouton_quitter = pygame.Rect(288, 400, 225, 60)
+bouton_retour = pygame.Rect(6,24,172,55)
 
 #Définition de la page option 
 def option_ecran():
@@ -67,8 +68,24 @@ def option_ecran():
         # Ajoutez ici le code pour afficher les options sur l'écran
         # Remplissage de l'écran 
         ecran.fill(fond)
-        ecran.blit(fondu, (0,0)) 
+        ecran.blit(fondu, (0,0))
+        # Récupérer les coordonnées de la souris
+        mouse_x, mouse_y = pygame.mouse.get_pos()
 
+        #evenement de option 
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+             if bouton_jouer.collidepoint(event.pos):
+               run=True
+
+        if bouton_retour.collidepoint((mouse_x, mouse_y)):
+            pygame.draw.rect(ecran,orange, ((6,24,177,60)))
+            pygame.draw.rect(ecran, rouge, bouton_retour)
+        else:
+            pygame.draw.rect(ecran, (50, 67, 60), ((6,24,177,60)))
+            pygame.draw.rect(ecran, (116, 111, 110), bouton_retour)
+
+        ecran.blit(retour,retour_rect)
         pygame.display.flip()
 
 # Boucle principale
