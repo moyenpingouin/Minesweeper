@@ -160,9 +160,13 @@ while run_global:
             pygame.draw.rect(ecran, (50, 67, 60), ((6,24,177,60)))
             pygame.draw.rect(ecran, (116, 111, 110), bouton_retour)
         
-        pygame.draw.rect(ecran,(0,0,0), (100, 120, 600, 50), 10)  # Barre du curseur
-        pygame.draw.rect(ecran, (0,0,255), (100 + param_value * 6, 120, 10,50))  # Curseur
-        value_text = police.render("Son: " + str(int(param_value)), True, rouge)
-        ecran.blit(value_text, (100, 200))
+        pygame.draw.rect(ecran,(50, 67, 60 ), (95, 125, 600, 50), 10)  # Barre du curseur
+        pygame.draw.rect(ecran,(116, 111, 110), (100, 120, 600, 50), 10)  # Barre du curseur
+        pygame.draw.rect(ecran, (80, 80, 80), (100, 120,param_value * 6,50))  # Curseur
+        pygame.draw.rect(ecran, (34, 34, 37), (100 + param_value * 6, 120, 10,50))  # Curseur
+        pygame.draw.rect(ecran, (50, 67, 60 ), (90,190,155,75))
+        pygame.draw.rect(ecran, (116, 111, 110), (90,190,150,70))
+        value_text = police.render("Son: " + str(int(param_value)), True, (255,255,255))
+        ecran.blit(value_text, (100, 210))
         ecran.blit(retour,retour_rect)
         pygame.display.flip()
