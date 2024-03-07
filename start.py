@@ -21,9 +21,9 @@ pygame.display.set_caption('Minesweeper')
 ecran = pygame.display.set_mode(taille_ecran)
 
 # Chargement des images
-drapeau = pygame.image.load('drapeau_start.png')  
-bombe = pygame.image.load('bombe_start.png')
-fond_image = pygame.image.load('fond_start.png') 
+drapeau = pygame.image.load('images/drapeau_start.png')  
+bombe = pygame.image.load('images/bombe_start.png')
+fond_image = pygame.image.load('images/fond_start.png') 
 fondu = pygame.transform.scale(fond_image,(taille_ecran))
 fondu.set_alpha(140)
 
@@ -75,9 +75,10 @@ def option_ecran():
         #evenement de option 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-             if bouton_jouer.collidepoint(event.pos):
-               run=True
-
+                if bouton_jouer.collidepoint(event.pos):
+                    run=True
+                    run_option=False
+                    break
         if bouton_retour.collidepoint((mouse_x, mouse_y)):
             pygame.draw.rect(ecran,orange, ((6,24,177,60)))
             pygame.draw.rect(ecran, rouge, bouton_retour)
@@ -105,6 +106,7 @@ while run:
             elif bouton_option.collidepoint(event.pos):
                 # Code pour passer à l'écran des options
                 run_option=True
+                run=False
                 option_ecran()
             elif bouton_quitter.collidepoint(event.pos):
                 pygame.quit()
