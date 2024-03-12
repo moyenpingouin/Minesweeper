@@ -145,7 +145,7 @@ while run_global:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Bouton gauche de la souris
                     mouse_x, mouse_y = pygame.mouse.get_pos()
-                    if 50 <= mouse_x <= 650 and 120 <= mouse_y <= 170:  # Zone du curseur
+                    if 100 <= mouse_x <= 700 and 120 <= mouse_y <= 170:  # Zone du curseur
                         param_value = (mouse_x - 100) / 6  
             if event.type == pygame.QUIT:
                 run_option=False
@@ -160,8 +160,8 @@ while run_global:
             pygame.draw.rect(ecran, (50, 67, 60), ((6,24,177,60)))
             pygame.draw.rect(ecran, (116, 111, 110), bouton_retour)
         
-        pygame.draw.rect(ecran,(50, 67, 60 ), (95, 125, 600, 50), 10)  # Barre du curseur
-        pygame.draw.rect(ecran,(116, 111, 110), (100, 120, 600, 50), 10)  # Barre du curseur
+        pygame.draw.rect(ecran,(50, 67, 60 ), (95, 125, 620, 50), 10)  # Barre du curseur
+        pygame.draw.rect(ecran,(116, 111, 110), (100, 120, 620, 50), 10)  # Barre du curseur
         pygame.draw.rect(ecran, (80, 80, 80), (100, 120,param_value * 6,50))  # Curseur
         pygame.draw.rect(ecran, (34, 34, 37), (100 + param_value * 6, 120, 10,50))  # Curseur
         pygame.draw.rect(ecran, (50, 67, 60 ), (90,190,155,75))
