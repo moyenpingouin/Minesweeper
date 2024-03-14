@@ -42,8 +42,10 @@ class tableau_rgt:
         self.elem=table
         self.diff=diff
         if diff==1:
-            self.image=Image.open('image/Sans_titre.jpg')
+            self.image='images/tableau_niveau_1.png'
         if diff==2:
-            self.image=Image.open('image/Sans_titre.jpg')
+            self.image='images/Sans_titre.jpg'
         if diff==3:
-            self.image=Image.open('image/Sans_titre.jpg')
+            self.image='images/Sans_titre.jpg'
+    
+    

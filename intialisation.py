@@ -31,7 +31,7 @@ elif difficulte==3:
 
 jeu_revele=[]
 jeu_cache=[]
-cordonnees_dep=input("coordonnées départ")
+cordonnees_dep=(0,0)
 cordonnees_dep=cordonnees_dep.split()
 cordonnees_dep=tuple(int(element) for element in cordonnees_dep)
 jeu_revele=initialiser(jeu_revele,longueur_y,longueur_x)
