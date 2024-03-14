@@ -147,7 +147,7 @@ while run_global:
                     run=True
                     run_option=False
                 elif bouton_help.collidepoint(event.pos):
-                    webbrowser.open('Minesweeper/page_web.html')
+                    webbrowser.open('file:///C:/Users/Renan/Documents/GitHub/Minesweeper/page_web.html')
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Bouton gauche de la souris
                     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -179,8 +179,11 @@ while run_global:
         pygame.draw.rect(ecran, (34, 34, 37), (100 + param_value * 6, 120, 10,50))  # Curseur
         pygame.draw.rect(ecran, (50, 67, 60 ), (90,190,155,75))
         pygame.draw.rect(ecran, (116, 111, 110), (90,190,150,70))
+        pygame.draw.rect(ecran,(116, 111, 110),(300,200,480,380))
+        pygame.draw.rect(ecran,(50, 67, 60 ),(300,200,480,380),10)
         value_text = police.render("Son: " + str(int(param_value)), True, (255,255,255))
         ecran.blit(value_text, (100, 210))
         ecran.blit(Help,Help_rect)
         ecran.blit(retour,retour_rect)
+        
         pygame.display.flip()
