@@ -32,8 +32,8 @@ elif difficulte==3:
 jeu_revele=[]
 jeu_cache=[]
 cordonnees_dep=(0,0)
-cordonnees_dep=cordonnees_dep.split()
-cordonnees_dep=tuple(int(element) for element in cordonnees_dep)
+#cordonnees_dep=cordonnees_dep.split()
+#cordonnees_dep=tuple(int(element) for element in cordonnees_dep)
 jeu_revele=initialiser(jeu_revele,longueur_y,longueur_x)
 jeu_revele=remplir(jeu_revele,cordonnees_dep,nb_mines)
 jeu_cache=mise_a_jour(jeu_revele)
