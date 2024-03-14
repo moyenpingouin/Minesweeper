@@ -1,7 +1,7 @@
 
 import pygame
 import sys
-import main3
+import webbrowser
 # Initialisation de Pygame
 pygame.init()
 
@@ -147,8 +147,7 @@ while run_global:
                     run=True
                     run_option=False
                 elif bouton_help.collidepoint(event.pos):
-                    # Code pour passer à l'écran des options
-                    pass
+                    webbrowser.open('Minesweeper/page_web.html')
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Bouton gauche de la souris
                     mouse_x, mouse_y = pygame.mouse.get_pos()
