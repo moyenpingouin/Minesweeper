@@ -1,6 +1,7 @@
 
 import pygame
 import sys
+import main3
 # Initialisation de Pygame
 pygame.init()
 
@@ -40,6 +41,7 @@ quitter=police.render("QUIT GAME",True,blanc)
 jouer=police.render("PLAY",True,blanc)
 option=police.render("OPTION",True,blanc)
 retour=police.render("RETOUR",True,blanc)
+Help=police.render("HELP",True,blanc)
 #rect
 texte_rect = minesweeper.get_rect(center=(largeur/2, (hauteur/2)-200))
 DEV_rect = Dev.get_rect(center=((largeur/2)+260, hauteur-25))
@@ -47,6 +49,7 @@ quitter_rect=quitter.get_rect(center=(largeur/2,(hauteur/2)+130))
 jouer_rect=jouer.get_rect(center=(largeur/2,(hauteur/2)-55))
 option_rect = option.get_rect(center=(largeur/2, (hauteur/2)+35))
 retour_rect = retour.get_rect(center=(90,50))
+Help_rect = Help.get_rect(center=(142,325))
 
 # Paramètres
 param_value = 50  # Valeur initiale du paramètre
@@ -58,6 +61,7 @@ bouton_jouer = pygame.Rect(288, 215, 225, 60)
 bouton_option = pygame.Rect(288, 305, 225, 60)
 bouton_quitter = pygame.Rect(288, 400, 225, 60)
 bouton_retour = pygame.Rect(6,24,172,55)
+bouton_help = pygame.Rect(90,295,120,60)
 
 #Définition de la page option 
 run_global=True
@@ -142,6 +146,9 @@ while run_global:
                 if bouton_retour.collidepoint(event.pos):
                     run=True
                     run_option=False
+                elif bouton_help.collidepoint(event.pos):
+                    # Code pour passer à l'écran des options
+                    pass
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Bouton gauche de la souris
                     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -159,7 +166,14 @@ while run_global:
         else:
             pygame.draw.rect(ecran, (50, 67, 60), ((6,24,177,60)))
             pygame.draw.rect(ecran, (116, 111, 110), bouton_retour)
-        
+
+        if bouton_help.collidepoint((mouse_x, mouse_y)):
+            pygame.draw.rect(ecran, orange, (90,295,125,65))
+            pygame.draw.rect(ecran, rouge, bouton_help)
+        else:
+            pygame.draw.rect(ecran, (50, 67, 60 ), (90,295,125,65))
+            pygame.draw.rect(ecran, (116, 111, 110), bouton_help)
+
         pygame.draw.rect(ecran,(50, 67, 60 ), (95, 125, 620, 50), 10)  # Barre du curseur
         pygame.draw.rect(ecran,(116, 111, 110), (100, 120, 620, 50), 10)  # Barre du curseur
         pygame.draw.rect(ecran, (80, 80, 80), (100, 120,param_value * 6,50))  # Curseur
@@ -168,5 +182,6 @@ while run_global:
         pygame.draw.rect(ecran, (116, 111, 110), (90,190,150,70))
         value_text = police.render("Son: " + str(int(param_value)), True, (255,255,255))
         ecran.blit(value_text, (100, 210))
+        ecran.blit(Help,Help_rect)
         ecran.blit(retour,retour_rect)
         pygame.display.flip()
