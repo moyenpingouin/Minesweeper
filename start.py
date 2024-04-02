@@ -55,6 +55,7 @@ Help_rect = Help.get_rect(center=(142,325))
 param_value = 50  # Valeur initiale du paramètre
 param_min = 0  # Valeur minimale du paramètre
 param_max = 100  # Valeur maximale du paramètre
+#pygame.mixer.music.load("")
 
 # Création des boutons
 bouton_jouer = pygame.Rect(288, 215, 225, 60)
