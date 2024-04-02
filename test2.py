@@ -4,7 +4,8 @@ import sys
 import webbrowser
 # Initialisation de Pygame
 pygame.init()
-
+def affich():
+    print('a')
 # Définition de la taille de l'écran
 largeur, hauteur = 800, 600
 taille_ecran = (largeur, hauteur)
@@ -81,8 +82,8 @@ while run_global:
                 if bouton_jouer.collidepoint(event.pos):
                     run_global=False
                     run=False
-                    global_run()
                 elif bouton_option.collidepoint(event.pos):
+                    affich()
                     # Code pour passer à l'écran des options
                     run_option=True
                     run=False
