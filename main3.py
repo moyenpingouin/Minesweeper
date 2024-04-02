@@ -8,8 +8,6 @@ import sys
 
 #boucle globale
 def global_run():
-    #imports
-
     #initialisation
     pygame.init()
     # Définir la taille de la fenêtre
@@ -20,6 +18,12 @@ def global_run():
     # Définir la position initiale de l'image de fond
     fond_x = 0
     fond_y = 0
+    #------------------------------------------------------------------------------#
+    #Selection Difficulté
+    run_diff=True
+    while run_diff:
+          pass
+    initialisation_(1)
     run_glbl=True
     while run_glbl:
         fenetre.blit(fond, (0, 0))
