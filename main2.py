@@ -1,37 +1,71 @@
+#-------------------------PROJET DEMINEUR --------------------------------#
+
+#import
+import os
+#import pygame
 from random import randint
 from classes import *
-from fonctions import *
-from intialisation import *
-import pygame
+#Variables
+jeu_revele=[]
+jeu_cache=[]
+    #difficulte=int(input("difficulté"))
+difficulte=1
 
-a=0
-deminer((cordonnees_dep),jeu_cache)
-affiche(jeu_cache)
+#initialisation
 
+if difficulte==1:
+    nb_mines=7
+    longueur_x=8
+    longueur_y=10
+elif difficulte==2:
+    nb_mines=40
+    longueur_x=15
+    longueur_y=20
+elif difficulte==3:
+    nb_mines=100
+    longueur_y=26
+    longueur_x=19
 
-while a==0:
-    coordonnées=input("coordonnées")
-    coordonnées=coordonnées.split()
-    coordonnées=tuple(int(element) for element in coordonnées)
-    if deminer((coordonnées),jeu_cache)=='GAME OVER':
-        break
-    else:
-        print('-------------------------')
-        deminer((coordonnées),jeu_cache)
-        affiche(jeu_cache)
-        b= verif(jeu_cache)
-        if b==True:
-            a=1
-        if b=='GAME OVER':
-            a=2
-if a ==1:
-    print('gagné')
-if a==2:
-    print('perdu')
-affiche_rev(jeu_cache)
+for i in range(longueur_x):
+    liste=[]
+    for j in range(longueur_y):
+        liste.append('X')
+print(jeu_cache)
+#class
 
 
-#if a==1: BRAVO
-#if a==2: Game over
 
-            
+#code
+def remplir(l:int,h:int,X:int,Y:int,max_mine:int):
+    """l:longeur du tableau
+    h:hauteur du tableau
+    X,Y: coordonnees du point d'initialisation
+    max_mine:le nombre total de mine sur la grille
+    OUT:liste de liste de int """
+    H=[0 for i in range(h)]
+    max_mine_ligne=max_mine/h
+    print(max_mine_ligne)
+    nombre_mine_tot=0
+    for i in range(h):
+        L=[0 for _ in range(l)]
+        nombre_mine=0
+        for y in range(l):
+          x=randint(0,6)
+          if x==2:
+             if(i,y)!=(Y,X) and nombre_mine < max_mine_ligne and nombre_mine_tot<max_mine:
+                L[y]='B'
+                nombre_mine+=1
+                nombre_mine_tot+=1
+        H[i]=L
+    if nombre_mine_tot!=max_mine:
+        for i in range(max_mine-nombre_mine_tot):
+            x=randint(0,l-1)
+            y=randint(0,h-1)
+            if(i,y)!=(Y,X):
+                H[y][x]="B"
+                nombre_mine_tot+=1
+
+    H[Y][X]="A"
+    return H,nombre_mine_tot
+print(remplir(15,20,2,1,40))
+print(remplir(8,10,2,1,7))

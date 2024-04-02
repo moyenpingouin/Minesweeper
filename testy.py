@@ -1,64 +1,62 @@
 import pygame
 import sys
 
-# Initialisation de Pygame
+# Initialiser Pygame
 pygame.init()
 
-# Taille de la fenêtre
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
+# Définir des couleurs
+BLANC = (255, 255, 255)
+NOIR = (0, 0, 0)
+GRIS = (200, 200, 200)
+ROUGE = (255, 0, 0)
 
-# Couleurs
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+# Définir les dimensions de la fenêtre
+largeur = 800
+hauteur = 600
 
-# Création de la fenêtre
-window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Exemple de jeu Pygame")
+# Créer la fenêtre
+ecran = pygame.display.set_mode((largeur, hauteur))
+pygame.display.set_caption("Barre de réglage")
 
-# Position initiale du carré
-square_x = WINDOW_WIDTH // 2
-square_y = WINDOW_HEIGHT // 2
-square_size = 50
+# Définir les variables
+param_value = 0.5
+en_train_de_glisser = False
 
-# Vitesse de déplacement
-speed = 5
+# Boucle principale du jeu
+run_option = True
+while run_option:
+    # Récupérer les coordonnées de la souris
+    mouse_x, mouse_y = pygame.mouse.get_pos()
 
-# Boucle principale
-running = True
-while running:
     # Gestion des événements
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            run_option = False
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # Bouton gauche de la souris
+                if 100 <= mouse_x <= 720 and 120 <= mouse_y <= 170:  # Zone du curseur
+                    en_train_de_glisser = True
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:  # Bouton gauche de la souris
+                en_train_de_glisser = False
 
-    # Gestion des mouvements du carré
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        square_x -= speed
-    if keys[pygame.K_RIGHT]:
-        square_x += speed
-    if keys[pygame.K_UP]:
-        square_y -= speed
-    if keys[pygame.K_DOWN]:
-        square_y += speed
+    # Si en train de glisser, mettre à jour la valeur du paramètre en fonction de la position du curseur
+    if en_train_de_glisser:
+        mouse_x = max(100, min(720, mouse_x))  # Limiter le curseur à l'intérieur de la barre
+        param_value = (mouse_x - 100) / 620  # Calculer la valeur du paramètre
 
-    # Limite les coordonnées du carré à l'intérieur de la fenêtre
-    square_x = max(0, min(square_x, WINDOW_WIDTH - square_size))
-    square_y = max(0, min(square_y, WINDOW_HEIGHT - square_size))
+    # Effacer l'écran
+    ecran.fill(BLANC)
 
-    # Efface l'écran
-    window.fill(WHITE)
+    # Dessiner la barre de réglage
+    pygame.draw.rect(ecran, GRIS, (100, 120, 620, 50), 10)  # Barre du curseur
+    pygame.draw.rect(ecran, NOIR, (100, 120, int(param_value * 620), 50))  # Curseur
 
-    # Dessine le carré
-    pygame.draw.rect(window, BLACK, (square_x, square_y, square_size, square_size))
+    # Mettre à jour l'affichage
+    pygame.display.flip()
 
-    # Met à jour l'affichage
-    pygame.display.update()
-
-    # Limite le taux de rafraîchissement de la boucle
-    pygame.time.Clock().tick(30)
-
-# Quitte Pygame
+# Quitter Pygame
 pygame.quit()
 sys.exit()
