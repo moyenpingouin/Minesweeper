@@ -1,45 +1,50 @@
-import pygame
-import sys
+import numpy as np
+from multiprocessing import Pool
+import time
 
-pygame.init()
+nbThread=8
+nbCalculs=600
 
-# Initialisation de l'écran
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Curseur Glissant")
+def func1(x:int)->int:
+    """Fonction qui renvoi la somme des carrés de 0 à x**2"""
+    #time.sleep(0.1)
+    S=0
+    for i in range(x**2):
+        S=S+i*i
+    return S
 
-# Couleurs
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-BLUE = (0, 0, 255)
+def func2(n, parallel=False):
+    """Cacul le resultat de func1 pour des valeurs de 1 à n parallélement ou non"""
+    my_array = np.zeros((n))
 
-# Paramètres
-param_value = 50  # Valeur initiale du paramètre
-param_min = 0  # Valeur minimale du paramètre
-param_max = 100  # Valeur maximale du paramètre
+    # Parallelized version:
+    if parallel:
+        pool = Pool(processes=nbThread)
+        ####### HERE COMES THE CHANGE ####### 
+        results = [pool.apply_async(func1, [val]) for val in range(1, n+1)]
+        for idx, val in enumerate(results):
+            my_array[idx] = val.get()
+        ####### 
+        pool.close()
+    # Not parallelized version:
+    else:
+        for i in range(1, n+1):
+            my_array[i-1] = func1(i)
 
-# Police
-font = pygame.font.Font(None, 36)
+    return my_array
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # Bouton gauche de la souris
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-                if 100 <= mouse_x <= 700 and 300 <= mouse_y <= 350:  # Zone du curseur
-                    param_value = (mouse_x - 100) / 6  # Mettre à jour la valeur du paramètre en fonction de la position du curseur
+def main():
+    start = time.time()
+    my_array = func2(nbCalculs)
+    end = time.time()
 
-    # Affichage
-    screen.fill(WHITE)
-    pygame.draw.rect(screen, BLACK, (100, 300, 600, 50), 2)  # Barre du curseur
-    pygame.draw.rect(screen, BLUE, (100 + param_value * 6, 300, 2, 50))  # Curseur
-    value_text = font.render("Valeur du paramètre : " + str(int(param_value)), True, BLACK)
-    screen.blit(value_text, (250, 400))
-    pygame.display.flip()
+    print("Normal time: {}\n".format(end-start))
 
-pygame.quit()
-sys.exit()
+    start_parallel = time.time()
+    my_array_parallelized = func2(nbCalculs, parallel=True)
+    end_parallel = time.time()
+
+    print("Time based on multiprocessing: {}".format(end_parallel-start_parallel))
+
+if __name__ == '__main__':
+    main()
